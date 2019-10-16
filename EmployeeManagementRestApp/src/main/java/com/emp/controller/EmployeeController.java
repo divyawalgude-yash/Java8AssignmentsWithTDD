@@ -79,13 +79,13 @@ public class EmployeeController {
 		if (emp.isPresent()) {
 
 			Optional<String> designation = Optional.ofNullable(employee.getDesignation());
-			//Optional<Integer> salary = Optional.ofNullable(employee.getSalary());
+			Optional<Integer> salary = Optional.ofNullable(employee.getSalary());
 			Optional<String> name = Optional.ofNullable(employee.getName());
 
 			if (name.isPresent())
 				emp.get().setName(employee.getName());
-//			if (salary.isPresent())
-//				emp.get().setSalary(employee.getSalary());
+			if (salary.isPresent())
+				emp.get().setSalary(employee.getSalary());
 			if (designation.isPresent())
 				emp.get().setDesignation(employee.getDesignation());
 

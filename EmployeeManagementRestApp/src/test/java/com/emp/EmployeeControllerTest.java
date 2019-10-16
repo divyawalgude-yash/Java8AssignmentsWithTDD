@@ -33,11 +33,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.emp.controller.EmployeeController;
 import com.emp.dao.EmployeeDao;
-import com.emp.model.Department;
 import com.emp.model.Employee;
 import com.emp.model.EmployeeNotFoundException;
-import com.emp.model.Salary;
-import com.emp.model.Technology;
 import com.emp.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -113,17 +110,7 @@ public class EmployeeControllerTest {
 	@Test
 	public void shouldReturnCheckPostMethod() throws Exception {
 
-		Employee employee = new Employee();
-		Salary s=new Salary();
-		Department department=new Department();
-		department.setDeptName("Computer");
-		s.setSalary(4000);
-		employee.setId((long)1);
-		employee.setSalary(s);
-		employee.setDepartment(department);
-		Technology tech=new Technology();
-		
-		employee.setTechnologies(null);
+		Employee employee = new Employee("divya", "software Engg", 40000);
 
 		when(employeeService.saveEmployee(employee)).thenReturn(getDummyEmployee());
 
@@ -150,18 +137,8 @@ public class EmployeeControllerTest {
 	@Test
 	public void ShouldReturnOkIfEmployeeDataIsupdate() throws Exception {
 
-		Employee employee = new Employee();
-		Salary s=new Salary();
-		Department department=new Department();
-		department.setDeptName("Computer");
-		s.setSalary(4000);
-		employee.setId((long)1);
-		employee.setSalary(s);
-		employee.setDepartment(department);
-		Technology tech=new Technology();
-		
-		employee.setTechnologies(null);
-		
+		Employee employee = new Employee("divya", "software Engg", 40000);
+
 		Optional<Employee> opEmp = Optional.ofNullable(employee);
 		when(employeeService.updateEmployee(employee)).thenReturn(getDummyEmployee());
 		when(employeeService.getEmployeeById((long) 12)).thenReturn(opEmp);
@@ -200,17 +177,7 @@ public class EmployeeControllerTest {
 	@Test
 	public void shouldReturnThrowEmployeeNotFoundExceptionIfDataIsNotUpdate() throws Exception {
 
-		Employee employee = new Employee();
-		Salary s=new Salary();
-		Department department=new Department();
-		department.setDeptName("Computer");
-		s.setSalary(4000);
-		employee.setId((long)1);
-		employee.setSalary(s);
-		employee.setDepartment(department);
-		Technology tech=new Technology();
-		
-		employee.setTechnologies(null);
+		Employee employee = new Employee("divya", "software Engg", 40000);
 
 		mockMvc.perform(put("/employees/6000").contentType(MediaType.APPLICATION_JSON).content(asJsonString(employee)))
 				.andExpect(status().isNotFound()).andExpect(jsonPath("$.status").value("Not Found"))
@@ -236,18 +203,11 @@ public class EmployeeControllerTest {
 
 	
 	public Employee getDummyEmployee() {
-	
 		Employee employee = new Employee();
-		Salary s=new Salary();
-		Department department=new Department();
-		department.setDeptName("Computer");
-		s.setSalary(4000);
-		employee.setId((long)1);
-		employee.setSalary(s);
-		employee.setDepartment(department);
-		Technology tech=new Technology();
-		
-		employee.setTechnologies(null);
+		employee.setId((long) 10);
+		employee.setName("divya");
+		employee.setDesignation("software");
+		employee.setSalary(400000);
 		return employee;
 	}
 
